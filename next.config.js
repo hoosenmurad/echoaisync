@@ -15,6 +15,14 @@ const nextConfig = {
       })
     );
 
+    // Handle FFmpeg workers
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      crypto: false
+    };
+
     return config;
   }
 };
