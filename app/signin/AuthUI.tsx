@@ -12,7 +12,7 @@ export default function AuthUI() {
     <div className="flex flex-col space-y-4">
       <Auth
         supabaseClient={supabase}
-        providers={['github']}
+        providers={['apple', 'google']}
         redirectTo={`${getURL()}/auth/callback`}
         magicLink={true}
         appearance={{
