@@ -7,7 +7,7 @@ import {
   getActiveProductsWithPrices,
   getSubscription,
   getCreditBalance
-} from '@/app/supabase-server';
+} from '@/utils/supabase/server';
 import SubscriptionDetails from '@/components/feature-subscription/ui/SubscriptionDetails/SubscriptionDetails';
 import PageHeader from '@/components/ui/Display/PageHeader';
 import Pricing from '@/components/ui/Display/Pricing';

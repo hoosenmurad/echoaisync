@@ -4,7 +4,7 @@ import {
   getCreditBalance,
   getSession,
   getUserDetails
-} from '@/app/supabase-server';
+} from '@/utils/supabase/server';
 import JobGrid from '@/components/feature-playground/ui/JobGrid';
 import MediaInput from '@/components/feature-playground/ui/MediaInput';
 import PageHeader from '@/components/ui/Display/PageHeader';

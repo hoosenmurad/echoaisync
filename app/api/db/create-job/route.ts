@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { insertJob } from '@/app/supabase-server';
+import { insertJob } from '@/utils/supabase/server';
 
 export async function POST(req: Request) {
   if (req.method !== 'POST') {

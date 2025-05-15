@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 
 import { Box, Flex, Link, Stack } from '@chakra-ui/react';
 
-import { getSession } from '@/app/supabase-server';
+import { getSession } from '@/utils/supabase/server';
 import logo from '@/assets/logo.png';
 
 import AuthUI from './AuthUI';

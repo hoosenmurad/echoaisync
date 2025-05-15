@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { updateJob } from '@/app/supabase-server';
+import { updateJob } from '@/utils/supabase/server';
 import { inngest } from '@/inngest/client';
 
 export async function POST(req: Request) {

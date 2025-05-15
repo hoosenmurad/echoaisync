@@ -5,7 +5,7 @@ import { Flex, Stack } from '@chakra-ui/react';
 import UsageTable from '@/components/feature-usage/ui/UsageTable';
 import PageHeader from '@/components/ui/Display/PageHeader';
 
-import { getSession } from '../supabase-server';
+import { getSession } from '../../utils/supabase/server';
 
 export default async function Usage() {
   // Grab data from db
