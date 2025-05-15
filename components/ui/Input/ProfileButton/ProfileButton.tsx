@@ -16,7 +16,7 @@ import {
   Divider,
   useMediaQuery
 } from '@chakra-ui/react';
-import { User } from '@supabase/auth-helpers-nextjs';
+import { User } from '@supabase/supabase-js';
 import {
   FaDollarSign,
   FaChartBar,

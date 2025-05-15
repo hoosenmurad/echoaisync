@@ -15,7 +15,7 @@ import {
   Text,
   Divider
 } from '@chakra-ui/react';
-import { User } from '@supabase/auth-helpers-nextjs';
+import { User } from '@supabase/supabase-js';
 import { MdSettings, MdPerson } from 'react-icons/md';
 
 import SignOutButton from './SignOutButton';

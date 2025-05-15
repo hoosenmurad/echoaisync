@@ -13,15 +13,14 @@ interface Metadata {
 // ————————————————————————————————————————————————————————————————
 // 1) Server-side client (uses Next.js cookies for auth)
 // ————————————————————————————————————————————————————————————————
-export async function createServerSupabaseClient() {
+export function createClient() {
   const cookieStore = cookies();
 
-  return createServerClient<Database>(
+  return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        // SSR cookie getters/setters
         getAll() {
           return cookieStore.getAll();
         },
@@ -31,10 +30,10 @@ export async function createServerSupabaseClient() {
               cookieStore.set(name, value, options)
             );
           } catch {
-            // ignore if called in a Server Component without middleware
+            // Handle errors if necessary
           }
-        }
-      }
+        },
+      },
     }
   );
 }
@@ -51,18 +50,18 @@ const supabaseService = createAnonClient(
 // 3) Auth & user helpers
 // ————————————————————————————————————————————————————————————————
 export async function getSession() {
-  const supabase = await createServerSupabaseClient();
+  const supabase = await createClient();
   try {
     const { data: { session } } = await supabase.auth.getSession();
     return session;
   } catch (error) {
-    console.error('getSession error', error)
+    console.error('getSession error', error);
     return null;
   }
 }
 
 export async function getUserDetails() {
-  const supabase = await createServerSupabaseClient()
+  const supabase = await createClient()
   try {
     const { data: user } = await supabase
       .from('users')
@@ -76,7 +75,7 @@ export async function getUserDetails() {
 }
 
 export async function getSubscription() {
-  const supabase = await createServerSupabaseClient()
+  const supabase = await createClient()
   try {
     const { data: subscription } = await supabase
       .from('subscriptions')
@@ -92,7 +91,7 @@ export async function getSubscription() {
 }
 
 export const getActiveProductsWithPrices = async () => {
-  const supabase = await createServerSupabaseClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('products')
     .select('*, prices(*)')
@@ -110,7 +109,7 @@ export const getActiveProductsWithPrices = async () => {
 // ————————————————————————————————————————————————————————————————
 export async function getJobs() {
   try {
-    const supabase = await createServerSupabaseClient()
+    const supabase = await createClient()
     const { data: jobs } = await supabase
       .from('jobs')
       .select('*')
@@ -123,7 +122,7 @@ export async function getJobs() {
 }
 
 export async function getJobsNotDeleted() {
-  const supabase = await createServerSupabaseClient()
+  const supabase = await createClient()
   const user = await getUserDetails()
   try {
     const { data: jobs } = await supabase
@@ -144,7 +143,7 @@ export async function getJobsBetweenDates(
   startDate: string,
   endDate: string
 ) {
-  const supabase = await createServerSupabaseClient()
+  const supabase = await createClient()
   try {
     const { data: jobs } = await supabase
       .from('jobs')
@@ -199,7 +198,7 @@ export async function getCreditBalance() {
 // 6) Job mutation helpers (use server-side or service role where appropriate)
 // ————————————————————————————————————————————————————————————————
 export async function insertJob() {
-  const supabase = await createServerSupabaseClient()
+  const supabase = await createClient()
   const user = await getUserDetails()
   const jobPayload = { user_id: user?.id as string, status: 'pending' as JobStatus }
   const { data, error } = await supabase
@@ -212,7 +211,7 @@ export async function insertJob() {
 
 export async function updateJob(jobId: string, updatedFields: any) {
   try {
-    const supabase = await createServerSupabaseClient()
+    const supabase = await createClient()
     const { data } = await supabase
       .from('jobs')
       .update(updatedFields)
@@ -229,7 +228,7 @@ export async function updateJobByOriginalVideoUrl(
   originalVideoUrl: string,
   updatedFields: any
 ) {
-  const supabase = await createServerSupabaseClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('jobs')
     .update(updatedFields)

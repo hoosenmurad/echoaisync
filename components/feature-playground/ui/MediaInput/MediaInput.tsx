@@ -13,7 +13,7 @@ import {
   useToast
 } from '@chakra-ui/react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { Session } from '@supabase/auth-helpers-nextjs';
+import { Session } from '@supabase/supabase-js';
 import { HiSparkles } from 'react-icons/hi';
 
 import Info from '@/components/ui/Display/Info';
