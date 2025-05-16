@@ -13,7 +13,7 @@ import {
   useToast
 } from '@chakra-ui/react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { Session } from '@supabase/supabase-js';
+import { Session, createClient } from '@supabase/supabase-js';
 import { HiSparkles } from 'react-icons/hi';
 
 import Info from '@/components/ui/Display/Info';
@@ -24,7 +24,6 @@ import { languages } from '@/data/languages';
 import { JobStatus } from '@/types/db';
 import loadFfmpeg from '@/utils/load-ffmpeg';
 import { checkIfValidYoutubeUrl } from '@/utils/regex';
-import { supabaseService } from '@/utils/supabase/server';
 import transcodeVideoToAudio from '@/utils/transcode-video-to-audio';
 import uploadYoutubeToSupabase from '@/utils/upload-youtube-to-supabase';
 
@@ -36,6 +35,11 @@ interface Props {
   session: Session | null;
   creditsAvailable: boolean;
 }
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 const MediaInput: FC<Props> = ({ session, creditsAvailable }) => {
   const ffmpegRef = useRef<any>(null);
@@ -115,7 +119,7 @@ const MediaInput: FC<Props> = ({ session, creditsAvailable }) => {
   }, [load]);
 
   const uploadFile = useCallback(async (file: File, filePath: string) => {
-    const { data, error } = await supabaseService.storage
+    const { data, error } = await supabase.storage
       .from('translation')
       .upload(filePath, file, {
         contentType: file.type

@@ -5,7 +5,7 @@ import { Box, Flex } from '@chakra-ui/react';
 import { FaDollarSign, FaRegWindowMaximize } from 'react-icons/fa';
 
 import logo from '@/assets/logo.png';
-import { createServerSupabaseClient } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/server';
 
 import Button from '../Input/Button';
 
@@ -23,7 +23,7 @@ const pages = [
 ];
 
 export default async function Navbar() {
-  const supabase = await createServerSupabaseClient();
+  const supabase = await createClient();
   const {
     data: { user }
   } = await supabase.auth.getUser();
