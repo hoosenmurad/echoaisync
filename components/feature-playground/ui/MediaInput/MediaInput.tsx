@@ -24,7 +24,7 @@ import { languages } from '@/data/languages';
 import { JobStatus } from '@/types/db';
 import loadFfmpeg from '@/utils/load-ffmpeg';
 import { checkIfValidYoutubeUrl } from '@/utils/regex';
-import supabase from '@/utils/supabase';
+import { supabaseService } from '@/utils/supabase/server';
 import transcodeVideoToAudio from '@/utils/transcode-video-to-audio';
 import uploadYoutubeToSupabase from '@/utils/upload-youtube-to-supabase';
 
@@ -115,7 +115,7 @@ const MediaInput: FC<Props> = ({ session, creditsAvailable }) => {
   }, [load]);
 
   const uploadFile = useCallback(async (file: File, filePath: string) => {
-    const { data, error } = await supabase.storage
+    const { data, error } = await supabaseService.storage
       .from('translation')
       .upload(filePath, file, {
         contentType: file.type

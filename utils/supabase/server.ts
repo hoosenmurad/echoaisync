@@ -46,6 +46,8 @@ const supabaseService = createAnonClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+export { supabaseService };
+
 // ————————————————————————————————————————————————————————————————
 // 3) Auth & user helpers
 // ————————————————————————————————————————————————————————————————
