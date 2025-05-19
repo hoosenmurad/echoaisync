@@ -1,4 +1,4 @@
-const CONRCURRENT_JOBS = parseInt(process.env.MAX_CONCURRENT_JOBS || '5');
+const CONCURRENT_JOBS = parseInt(process.env.MAX_CONCURRENT_JOBS || '5');
 
 import assert from 'assert';
 
@@ -66,7 +66,7 @@ export const processJob = inngest.createFunction(
     id: 'process-job',
     concurrency: {
       scope: 'fn',
-      limit: CONRCURRENT_JOBS
+      limit: CONCURRENT_JOBS
     },
     retries: parseInt(process.env.MAX_JOB_RETRIES || '3') as any,
 
