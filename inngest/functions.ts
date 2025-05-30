@@ -9,7 +9,7 @@ import { SynchronicityLogger } from '@/lib/SynchronicityLogger';
 import cloneVoice from '@/utils/clone-voice';
 import deleteVoice from '@/utils/deleteVoice';
 import synchronize from '@/utils/synchronize';
-import synthesisSpeech from '@/utils/sythesis-speech';
+import synthesisSpeech from '@/utils/synthesis-speech';
 import transcribeAndTranslate from '@/utils/transcribeAndTranslate';
 
 const supabase = createClient(
@@ -96,7 +96,7 @@ export const processJob = inngest.createFunction(
     }
   },
   { event: 'jobs.submitted' },
-  async ({ event, step }) => {
+  async ({ event }) => {
     const data: {
       jobId: string;
       videoUrl: string;
