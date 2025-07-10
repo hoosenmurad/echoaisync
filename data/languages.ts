@@ -1,8 +1,3 @@
-interface Language {
-  name: string;
-  code: string;
-}
-
 // export const languages = [
 //   { name: 'English', code: 'en' },
 //   { name: 'Mandarin Chinese', code: 'zh' },
